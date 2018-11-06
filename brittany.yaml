@@ -1,0 +1,87 @@
+# brittany version 0.11.0.0
+conf_layout:
+    lconfig_reformatModulePreamble: false # stylish-haskell is better at this
+    lconfig_allowSingleLineExportList: false
+    lconfig_altChooser:
+        tag: AltChooserBoundedSearch
+        contents: 3
+    lconfig_importAsColumn: 50
+    lconfig_importColumn: 60
+    lconfig_hangingTypeSignature: false
+    lconfig_alignmentLimit: 30
+    lconfig_indentListSpecial: true
+    lconfig_indentAmount: 4
+    lconfig_alignmentBreakOnMultiline: true
+    lconfig_cols: 80
+    lconfig_indentPolicy: IndentPolicyFree
+    lconfig_indentWhereSpecial: true
+    lconfig_columnAlignMode:
+        tag: ColumnAlignModeMajority
+        contents: 0.7
+
+conf_forward:
+    options_ghc:
+        - -XAutoDeriveTypeable
+        - -XBangPatterns
+        - -XBinaryLiterals
+        - -XConstraintKinds
+        - -XDataKinds
+        - -XDefaultSignatures
+        - -XDeriveAnyClass
+        - -XDeriveDataTypeable
+        - -XDeriveFoldable
+        - -XDeriveFunctor
+        - -XDeriveGeneric
+        - -XDeriveTraversable
+        - -XDerivingStrategies
+        - -XDoAndIfThenElse
+        - -XEmptyDataDecls
+        - -XExistentialQuantification
+        - -XFlexibleContexts
+        - -XFlexibleInstances
+        - -XFunctionalDependencies
+        - -XGADTs
+        - -XGeneralizedNewtypeDeriving
+        - -XInstanceSigs
+        - -XKindSignatures
+        - -XLambdaCase
+        - -XMonadFailDesugaring
+        - -XMultiParamTypeClasses
+        - -XMultiWayIf
+        - -XNamedFieldPuns
+        - -XNoImplicitPrelude
+        - -XOverloadedStrings
+        - -XPackageImports
+        - -XPartialTypeSignatures
+        - -XPatternGuards
+        - -XPolyKinds
+        - -XRankNTypes
+        - -XRecordWildCards
+        - -XScopedTypeVariables
+        - -XStandaloneDeriving
+        - -XTupleSections
+        - -XTypeFamilies
+        - -XTypeSynonymInstances
+        - -XViewPatterns
+
+conf_debug:
+    dconf_roundtrip_exactprint_only: false
+    dconf_dump_bridoc_simpl_par: false
+    dconf_dump_ast_unknown: false
+    dconf_dump_bridoc_simpl_floating: false
+    dconf_dump_config: false
+    dconf_dump_bridoc_raw: false
+    dconf_dump_bridoc_final: false
+    dconf_dump_bridoc_simpl_alt: false
+    dconf_dump_bridoc_simpl_indent: false
+    dconf_dump_annotations: false
+    dconf_dump_bridoc_simpl_columns: false
+    dconf_dump_ast_full: false
+conf_errorHandling:
+    econf_ExactPrintFallback: ExactPrintFallbackModeInline
+    econf_Werror: false
+    econf_omit_output_valid_check: false
+    econf_produceOutputOnErrors: false
+conf_preprocessor:
+    ppconf_CPPMode: CPPModeAbort
+    ppconf_hackAroundIncludes: false

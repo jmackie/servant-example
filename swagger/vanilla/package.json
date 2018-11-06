@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "parcel": "^1.10.3",
+        "swagger-ui": "^3.19.4"
+    }
+}

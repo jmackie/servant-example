@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "parcel": "^1.10.3",
+        "redoc": "^2.0.0-alpha.40"
+    }
+}

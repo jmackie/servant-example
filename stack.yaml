@@ -1,0 +1,7 @@
+resolver: lts-12.13
+packages:
+    - .
+extra-deps: []
+nix:
+    enable: false
+    packages: [postgresql]

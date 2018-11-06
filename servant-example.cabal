@@ -1,0 +1,123 @@
+name: servant-example
+version: 0.1.0.0
+license: BSD3
+license-file: LICENSE
+author: Jordan Mackie
+maintainer: jmackie@travelrepublic.co.uk
+copyright: 2018 Jordan Mackie
+category: Web
+build-type: Simple
+cabal-version: >=1.10
+
+flag release
+    description: Enable optimisations
+    default: False
+
+library
+    hs-source-dirs:
+        src
+    exposed-modules:
+        API
+        Data.Config
+        Data.User
+        Database
+        Server
+    other-modules:
+        Auth
+        Data.Nat
+        Data.Post
+        Data.String.Multiline
+        Middleware.Debugging
+        Paths_servant_example
+        Servant.Extras
+        Text.Lorem
+    build-depends:
+        base >= 4.7 && < 5
+      , QuickCheck
+      , aeson
+      , bytestring
+      , case-insensitive
+      , containers
+      , contravariant
+      , file-embed
+      , hasql
+      , http-types
+      , lens
+      , mtl
+      , optparse-applicative
+      , scientific
+      , servant-foreign
+      , servant-js
+      , servant-server
+      , servant-swagger
+      , swagger2 , template-haskell
+      , text
+      , wai
+      , wai-app-static
+      , warp
+    ghc-options:
+        -Weverything
+        -fno-warn-missing-import-lists
+        -fno-warn-safe
+        -fno-warn-unsafe
+        -- https://ghc.haskell.org/trac/ghc/ticket/15388
+        -fno-warn-all-missed-specialisations
+    default-language:
+        Haskell2010
+    default-extensions:
+        NoImplicitPrelude
+
+executable server
+    hs-source-dirs:
+        .
+    main-is:
+        Main.hs
+    ghc-options:
+        -Weverything
+        -fno-warn-missing-import-lists
+        -fno-warn-safe
+        -fno-warn-unsafe
+        -fno-warn-all-missed-specialisations
+    if flag(release)
+        ghc-options:
+            -O
+            -threaded
+            -rtsopts
+            -with-rtsopts=-N
+    build-depends:
+        base
+      , servant-example
+    default-language:
+        Haskell2010
+    default-extensions:
+        NoImplicitPrelude
+
+test-suite unit
+    type:
+        exitcode-stdio-1.0
+    hs-source-dirs:
+        test
+    main-is:
+        Spec.hs
+    build-depends:
+        base
+      , QuickCheck
+      , aeson
+      , bytestring
+      , containers
+      , hspec
+      , hspec-wai
+      , mtl
+      , process
+      , servant-example
+      -- servant-quickcheck
+    ghc-options:
+        -Weverything
+        -fno-warn-missing-import-lists
+        -fno-warn-safe
+        -fno-warn-unsafe
+        -fno-warn-all-missed-specialisations
+    default-language:
+        Haskell2010
+    default-extensions:
+        NoImplicitPrelude
