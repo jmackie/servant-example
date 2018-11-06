@@ -1,5 +1,6 @@
-{-# OPTIONS_GHC -fno-warn-orphans #-}
+{-# OPTIONS_GHC -fno-warn-orphans       #-}
 {-# LANGUAGE DataKinds                  #-}
+{-# LANGUAGE DerivingStrategies         #-}
 {-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE LambdaCase                 #-}
@@ -52,11 +53,12 @@ import qualified Servant.Server.Experimental.Auth as Servant
 import qualified Servant.Swagger
 
 import Control.Lens ((%~), (.~), (?~))
-import Control.Monad.Error.Class (throwError)
+import Control.Monad.Error.Class (MonadError, throwError)
 import Control.Monad.Except (runExceptT)
 import Control.Monad.Except (ExceptT)
-import Control.Monad.IO.Class (liftIO)
+import Control.Monad.IO.Class (MonadIO, liftIO)
 import Control.Monad.Reader (ReaderT, runReaderT)
+import Control.Monad.Reader.Class (MonadReader)
 import Data.Config (Config)
 import Data.Function ((&))
 import Data.Nat (Nat)
@@ -141,8 +143,15 @@ cookieAuthHandler = Servant.mkAuthHandler $ \request -> do
 
 
 -- | Our 'Handler' Monad.
-type Handler =
-    ReaderT Stuff (ExceptT Servant.ServantErr IO)
+newtype Handler a = Handler
+    { _runHandler :: ReaderT Stuff (ExceptT Servant.ServantErr IO) a }
+    deriving newtype ( Functor
+                     , Applicative
+                     , Monad
+                     , MonadIO
+                     , MonadReader Stuff
+                     , MonadError Servant.ServantErr
+                     )
 
 
 -- | Stuff that handlers will need access to.
@@ -154,7 +163,8 @@ data Stuff = Stuff
 
 -- | Convert our 'Handler' type to servant's 'Handler' type.
 toServantHandler :: Stuff -> Handler a -> Servant.Handler a
-toServantHandler stuff handler = Servant.Handler (runReaderT handler stuff)
+toServantHandler stuff (Handler readerT) =
+    Servant.Handler (runReaderT readerT stuff)
 
 
 -- MORE TYPES
@@ -356,7 +366,6 @@ codeGen' = \case
 codeGenVanillaJavascript :: Handler Text
 codeGenVanillaJavascript =
     pure (Servant.JS.jsForAPI (Proxy :: Proxy UsersAPI) Servant.JS.vanillaJS)
-
 
 
 -- UTIL
