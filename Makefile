@@ -54,7 +54,6 @@ ghcid-test:
 				   --package hspec \
 				   --package hspec-wai \
 				   --package process \
-				   --package servant-quickcheck \
 				   --main-is servant-example:test:unit \
 				   $(GHCID_COMMAND_FLAGS)' \
         --test=':main' \
